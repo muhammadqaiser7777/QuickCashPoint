@@ -1,0 +1,20 @@
+<header class="site-header">
+  <!-- Left side (Logo) -->
+  <a routerLink="/" class="logo">QuickCashPoint</a>
+
+  <!-- Right side (More + Apply) -->
+  <div class="right-section">
+    <div class="dropdown" (mouseleave)="closeDropdown()">
+      <button class="dropbtn" (click)="toggleDropdown()">More ▾</button>
+      <div class="dropdown-content" *ngIf="dropdownOpen">
+        <a routerLink="/faq" routerLinkActive="active">FAQ</a>
+        <a routerLink="/about" routerLinkActive="active">About</a>
+        <a routerLink="/contact" routerLinkActive="active">Contact</a>
+        <a routerLink="/company-policy" routerLinkActive="active">Company Policy</a>
+        <a routerLink="/privacy-policy" routerLinkActive="active">Privacy Policy</a>
+      </div>
+    </div>
+
+    <a routerLink="/loans" routerLinkActive="active" class="apply-btn">Apply for Loan</a>
+  </div>
+</header>

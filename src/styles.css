@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+/* Reset margins and paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Full width layout */
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+/* Every Angular component should stretch 100% width */
+app-root,
+app-header,
+app-footer,
+router-outlet,
+main,
+header,
+footer,
+section,
+div {
+  display: block;
+  width: 100%;
+}

@@ -1,0 +1,92 @@
+.site-header {
+  display: flex;
+  justify-content: space-between; /* logo on left, nav block on right */
+  align-items: center;
+  padding: 15px 40px;
+  background: #0d0d0d;
+  color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Logo */
+.logo {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo:hover,
+.logo.active {
+  color: #28a745;
+}
+
+/* Right side (More + Apply) */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: auto;         /* ✅ pushes all of it to the far right */
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropbtn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 6px 8px;
+}
+
+.dropbtn:hover,
+.dropdown-content a:hover,
+.dropdown-content a.active {
+  color: #28a745;
+}
+
+.dropdown-content {
+  position: absolute;
+  left: 0; /* aligned under More */
+  top: 100%;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  min-width: 160px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-content a {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+
+.dropdown-content a:hover,
+.dropdown-content a.active {
+  background: #222;
+  color: #28a745;
+}
+
+/* Apply Button */
+.apply-btn {
+  padding: 6px 12px;
+  background: #28a745;
+  color: #fff !important;
+  border-radius: 4px;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.apply-btn:hover,
+.apply-btn.active {
+  background: #218838;
+}
