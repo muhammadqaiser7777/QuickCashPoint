@@ -1,0 +1,36 @@
+.privacy-policy-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  line-height: 1.7;
+  font-size: 16px;
+  color: #333;
+}
+
+.privacy-policy-container h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0e975c; /* Dark Green brand color */
+}
+
+.privacy-policy-container h2 {
+  margin-top: 25px;
+  font-size: 1.4rem;
+  color: #396C40; /* Green accent */
+}
+
+.privacy-policy-container h3 {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #4C6666; /* Teal Gray secondary */
+}
+
+.privacy-policy-container a {
+  color: #fda900; /* Highlight Yellow/Orange */
+  text-decoration: none;
+}
+
+.privacy-policy-container a:hover {
+  text-decoration: underline;
+}

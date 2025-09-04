@@ -1,0 +1,13 @@
+.site-footer {
+  background-color: #0e975c; /* Dark Green */
+  color: #fda900; /* Yellow/Orange */
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.95rem; /* Slightly larger */
+  font-weight: 500;
+}
+
+/* Make © symbol scale up */
+.site-footer p::first-letter {
+  font-size: 1.5em; /* Enlarge only the © */
+}

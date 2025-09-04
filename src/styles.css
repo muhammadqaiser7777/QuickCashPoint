@@ -1,4 +1,4 @@
-/* Reset margins and paddings */
+
 * {
   margin: 0;
   padding: 0;
@@ -9,18 +9,16 @@
 html, body {
   width: 100%;
   height: 100%;
+  font-family: 'Epunda Slab', sans-serif; /* Apply globally */
+  background-color: #fff;
+  color: #0e975c; /* Dark green for text */
 }
 
-/* Every Angular component should stretch 100% width */
+/* Main containers */
 app-root,
 app-header,
 app-footer,
-router-outlet,
 main,
-header,
-footer,
-section,
-div {
-  display: block;
+footer {
   width: 100%;
 }

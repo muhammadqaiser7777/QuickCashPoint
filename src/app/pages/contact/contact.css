@@ -1,0 +1,50 @@
+.contact-page {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.tagline h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #0e975c; /* Dark Green */
+}
+
+.tagline p {
+  font-size: 1.2rem;
+  color: #4C6666; /* Teal Gray */
+  margin-bottom: 40px;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.1rem;
+}
+
+.info-label {
+  font-weight: bold;
+  color: #396C40; /* Green accent */
+  min-width: 100px;
+  text-align: right;
+}
+
+.info-data a {
+  text-decoration: none;
+  color: #0e975c;
+  font-weight: 500;
+}
+
+.info-data a:hover {
+  color: #fda900; /* Yellow/Orange highlight */
+}

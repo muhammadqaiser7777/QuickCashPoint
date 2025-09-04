@@ -1,1 +1,84 @@
-<p>home works!</p>
+<div class="homepage">
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Quick Cash Point</h1>
+      <p>A secure platform that connects you with trusted third-party lenders who may have offers tailored to your needs.</p>
+  
+      <!-- Loan Selection Form -->
+      <form class="lead-form" (ngSubmit)="onSubmit()">
+        <label for="amount">What loan range are you interested in?</label>
+  
+        <div class="loan-options">
+          <button type="button" (click)="goToForm('40000-50000')">$40,000 - $50,000</button>
+          <button type="button" (click)="goToForm('30000-40000')">$30,000 - $40,000</button>
+          <button type="button" (click)="goToForm('25000-30000')">$25,000 - $30,000</button>
+          <button type="button" (click)="goToForm('20000-25000')">$20,000 - $25,000</button>
+          <button type="button" (click)="goToForm('15000-20000')">$15,000 - $20,000</button>
+          <button type="button" (click)="goToForm('10000-15000')">$10,000 - $15,000</button>
+          <button type="button" (click)="goToForm('5000-10000')">$5,000 - $10,000</button>
+          <button type="button" (click)="goToForm('2500-5000')">$2,500 - $5,000</button>
+          <button type="button" (click)="goToForm('1000-2500')">$1,000 - $2,500</button>
+          <button type="button" (click)="goToForm('500-1000')">$500 - $1,000</button>
+          <button type="button" (click)="goToForm('100-500')">$100 - $500</button>
+        </div>
+        <p class="note">We are not a lender. Your request will be shared with independent, verified lenders who may contact you with offers.</p>
+      </form>
+    </section>
+  
+    <!-- How It Works -->
+    <section class="how-it-works">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>1. Submit Your Request</h3>
+          <p>Select your preferred loan range and provide basic details securely.</p>
+        </div>
+        <div class="step">
+          <h3>2. Get Matched</h3>
+          <p>We match your request with lenders in our network based on your profile.</p>
+        </div>
+        <div class="step">
+          <h3>3. Review Offers</h3>
+          <p>Lenders who are interested may contact you directly. You decide whether to accept any offer.</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Why Us -->
+    <section class="why-us">
+      <h2>Why Use Quick Cash Point?</h2>
+      <ul>
+        <li>✔️ Easy and secure lead submission process</li>
+        <li>✔️ Access to multiple lenders through one platform</li>
+        <li>✔️ Transparent — we do not originate loans</li>
+        <li>✔️ Your information is shared only with verified partners</li>
+      </ul>
+    </section>
+  
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <h2>What Our Customers Say</h2>
+      <div class="testimonial-cards">
+        <div class="card">
+          <p>"Quick Cash Point connected me with a lender the same day. The process was straightforward."</p>
+          <span>- Grant Miller</span>
+        </div>
+        <div class="card">
+          <p>"Instead of applying everywhere, I submitted once and got matched quickly."</p>
+          <span>- Julian Becker</span>
+        </div>
+        <div class="card">
+          <p>"Clear and transparent — I knew Quick Cash Point wasn’t the lender, but the connection worked well."</p>
+          <span>- Eleanor Clark</span>
+        </div>
+      </div>
+    </section>
+  
+    <!-- FAQ Preview -->
+    <section class="faq-preview">
+      <h2>Have Questions?</h2>
+      <p>Visit our FAQ section to learn more about how Quick Cash Point works.</p>
+      <button class="faq-btn" (click)="goToFAQ()">Go to FAQs</button>
+    </section>
+  </div>
+  

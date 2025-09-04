@@ -1,1 +1,22 @@
-<p>faq works!</p>
+<main class="faq-page">
+  <section class="faq-hero">
+    <h1>Frequently Asked Questions</h1>
+    <p>Answers about how Quick Cash Point works, privacy, and your rights.</p>
+
+    <div class="search-box">
+      <input [(ngModel)]="query" placeholder="Search FAQs (e.g., privacy, opt-out, lenders)"/>
+      <button *ngIf="query" (click)="query = ''" class="clear">Clear</button>
+    </div>
+  </section>
+
+  <section class="faq-list">
+    <div *ngFor="let f of filtered" class="faq-item">
+      <h3 class="q">{{ f.q }}</h3>
+      <p class="a" [innerHTML]="f.a"></p>
+    </div>
+
+    <div *ngIf="filtered.length === 0" class="no-results">
+      No results. Try different keywords or contact us at <a href="mailto:info@quickcashpoint.com">info@quickcashpoint.com</a>.
+    </div>
+  </section>
+</main>

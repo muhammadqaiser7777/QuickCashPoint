@@ -1,0 +1,171 @@
+    .homepage {
+    color: #0e975c;
+    }
+
+    /* Hero Section */
+    .hero {
+    background: linear-gradient(rgba(17, 38, 29, 0.85), rgba(17, 38, 29, 0.85)),
+                url('https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1500&q=80')
+                center/cover;
+    color: white;
+    text-align: center;
+    padding: 5rem 2rem;
+    }
+
+    .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    }
+
+    .lead-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 2rem auto;
+    gap: 1rem;
+    }
+
+    .lead-form input {
+    padding: 0.8rem;
+    border: 1px solid #4C6666;
+    border-radius: 8px;
+    }
+
+    .lead-form button {
+    background-color: #fda900;
+    color: white;
+    font-weight: bold;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    }
+
+    .lead-form button:hover {
+    background-color: #c88c1f;
+    }
+
+    .note {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    }
+
+    /* How It Works */
+    .how-it-works {
+    padding: 4rem 2rem;
+    text-align: center;
+    background: #f9f9f9;
+    }
+
+    .steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    }
+
+    .step {
+    flex: 1 1 250px;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    /* Why Us */
+    .why-us {
+    padding: 4rem 2rem;
+    background: #0e975c;
+    color: white;
+    text-align: center;
+    }
+
+    .why-us ul {
+    list-style: none;
+    padding: 0;
+    }
+
+    .why-us li {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    }
+
+    /* Testimonials */
+    .testimonials {
+    padding: 4rem 2rem;
+    text-align: center;
+    }
+
+    .testimonial-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    }
+
+    .card {
+    flex: 1 1 300px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .card span {
+    display: block;
+    margin-top: 1rem;
+    font-style: italic;
+    color: #396C40;
+    }
+
+    /* FAQ Preview */
+    .faq-preview {
+    padding: 4rem 2rem;
+    background: #f3f3f3;
+    text-align: center;
+    }
+
+    .faq-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    background-color: #396C40;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    }
+
+    .faq-btn:hover {
+    background-color: #2e5533;
+    }
+
+    .loan-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
+    }
+
+    .loan-options button {
+    padding: 0.9rem;
+    border: 1px solid #4C6666;
+    border-radius: 8px;
+    background: white;
+    color: #0e975c;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+
+    .loan-options button:hover {
+    background: #f3f3f3;
+    }
+
+    .loan-options button.selected {
+    background: #396C40;
+    color: white;
+    border-color: #396C40;
+    }

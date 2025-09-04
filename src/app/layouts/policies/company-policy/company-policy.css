@@ -1,0 +1,80 @@
+/* Theme palette */
+:root{
+  --qcp-dark: #0e975c;
+  --qcp-green: #396C40;
+  --qcp-accent: #fda900;
+  --qcp-olive: #5E5831;
+  --qcp-teal: #4C6666;
+}
+
+.policy-wrap{
+  max-width: 920px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+  color: var(--qcp-dark);
+  line-height: 1.6;
+}
+
+.policy-header{
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.policy-header h1{
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--qcp-dark);
+  letter-spacing: 0.3px;
+}
+
+.subtitle{
+  color: var(--qcp-teal);
+  margin-top: 0.35rem;
+}
+
+.policy-card{
+  background: #fff;
+  border: 1px solid rgba(17,38,29,0.08);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(17,38,29,0.06);
+}
+
+.policy-card h2{
+  margin-top: 1.25rem;
+  margin-bottom: 0.4rem;
+  font-size: 1.2rem;
+  color: var(--qcp-green);
+}
+
+.policy-card ul{
+  padding-left: 1.1rem;
+}
+
+.contact-block{
+  margin-top: 0.75rem;
+  padding: 0.9rem;
+  border-left: 4px solid var(--qcp-accent);
+  background: rgba(228,165,38,0.06);
+  border-radius: 8px;
+}
+
+.contact-block a{
+  color: var(--qcp-green);
+  text-decoration: none;
+  font-weight: 600;
+}
+.contact-block a:hover{
+  color: var(--qcp-accent);
+  text-decoration: underline;
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px){
+  .policy-card{
+    padding: 1.1rem;
+  }
+  .policy-header h1{
+    font-size: 1.6rem;
+  }
+}

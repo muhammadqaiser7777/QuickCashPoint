@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -18,5 +18,15 @@ export class Header {
 
   closeDropdown() {
     this.dropdownOpen = false;
+  }
+
+  // Close when clicking outside
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    const isInsideDropdown = target.closest('.dropdown');
+    if (!isInsideDropdown) {
+      this.dropdownOpen = false;
+    }
   }
 }

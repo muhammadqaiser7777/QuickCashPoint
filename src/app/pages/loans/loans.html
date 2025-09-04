@@ -1,1 +1,163 @@
-<p>loans works!</p>
+<div class="loan-form-container">
+    <h2 class="form-title">Quick Cash Point - Loan Application</h2>
+    <div class="progress-indicator">
+        Step {{ currentStep + 1 }} of {{ questions.length }}
+    </div>
+
+    <form (ngSubmit)="submitForm()" (keydown.enter)="onEnter($event)">
+        <!-- Hidden input for LeadiD universal lead id (populated by script) -->
+        <input type="hidden" name="universal_leadid" id="universal_leadid" />
+        <!-- Hidden input for TrustedForm cert URL (populated by script) -->
+        <input type="hidden" name="xxTrustedFormCertUrl" id="xxTrustedFormCertUrl" />
+        <div class="question-box">
+            <h3 class="abc">{{ questions[currentStep].label }}</h3>
+
+            <!-- Button options (when select has <= 12 options) -->
+            <div *ngIf="isButtonQuestion(currentStep)" class="button-options">
+                <button *ngFor="let option of questions[currentStep].options"
+                        type="button"
+                        (click)="selectOption(currentStep, option)"
+                        [class.selected]="answers[currentStep] === option"
+                        [disabled]="isSubmitting || isSubmitted">
+                    {{ option }}
+                </button>
+            </div>
+
+            <!-- Dropdown select -->
+            <select *ngIf="questions[currentStep].type === 'select' && !isButtonQuestion(currentStep)"
+                    [(ngModel)]="answers[currentStep]"
+                    class="input-field"
+                    [ngModelOptions]="{standalone: true}"
+                    [disabled]="isSubmitting || isSubmitted">
+                <option value="">Select...</option>
+                <option *ngFor="let option of questions[currentStep].options" [value]="option">
+                    {{ option }}
+                </option>
+            </select>
+
+<input 
+  *ngIf="['text','date','tel','email','password','number']
+        .includes(questions[currentStep].inputType || questions[currentStep].type)"
+        [type]="questions[currentStep].inputType || questions[currentStep].type"
+        [(ngModel)]="answers[currentStep]"
+        class="input-field"
+        [placeholder]="questions[currentStep].placeholder || ''"
+        [attr.maxlength]="questions[currentStep].maxLength ? questions[currentStep].maxLength : null"
+        (input)="errorMessage = ''"
+        [ngModelOptions]="{standalone: true}"
+        [disabled]="isSubmitting || isSubmitted || 
+        (currentStep === ZIP_CODE_QUESTION_INDEX && isZipValidating)" 
+/>
+
+
+            <!-- Terms & Conditions checkbox as last question -->
+            <div *ngIf="questions[currentStep].type === 'checkbox'" class="terms-box">
+                <label class="terms-label">
+                    <input type="checkbox" [(ngModel)]="answers[currentStep]" [ngModelOptions]="{standalone: true}" />
+                    <span>
+                        {{ TcpaText }} For more information, please see the
+                        <a routerLink="/privacy-policy" target="_blank">Privacy Policy</a>
+                        and the
+                        <a routerLink="/company-policy" target="_blank">Company Policy</a>.
+                    </span>
+                </label>
+            </div>
+
+
+
+
+            <!-- Birthday with MM/DD/YYYY -->
+<!-- Date of Birth (dropdowns) -->
+<div *ngIf="questions[currentStep].type === 'dob'" class="dob-fields">
+    <select [(ngModel)]="dobAnswer.dobMonth" [ngModelOptions]="{standalone: true}" (change)="onDobMonthChange()">
+        <option value="">MM</option>
+        <option *ngFor="let m of months" [value]="m">{{ m }}</option>
+    </select>
+    <select [(ngModel)]="dobAnswer.dobDay" [ngModelOptions]="{standalone: true}">
+        <option value="">DD</option>
+        <option *ngFor="let d of days" [value]="d">{{ d }}</option>
+    </select>
+    <select [(ngModel)]="dobAnswer.dobYear" [ngModelOptions]="{standalone: true}" (change)="onDobYearChange()">
+        <option value="">YYYY</option>
+        <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+    </select>
+    <br><br>
+  <div class="error" *ngIf="dobError">{{ dobError }}</div>
+</div>
+
+            <!-- Error message -->
+            <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+        </div>
+
+        <!-- Navigation buttons -->
+        <div class="form-nav">
+            <!-- Prev button -->
+            <button class="btn prev-btn" type="button"
+                    *ngIf="currentStep > 0"
+                    (click)="prevStep()"
+                    [disabled]="isSubmitting || isSubmitted || isZipValidating">
+                <div class="icon-stack">
+                    <!-- Prev SVGs -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                        <path d="M2 9h20" />
+                        <path d="M8 12l2 2-2 2 3 2-2 2" />
+                        <circle cx="18" cy="14" r="1.5" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-left"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                    </svg>
+                </div>
+            </button>
+
+            <!-- Next button -->
+            <button class="btn next-btn" type="button"
+                    *ngIf="currentStep < questions.length - 1"
+                    (click)="nextStep()"
+                    [disabled]="isSubmitting || isSubmitted || isZipValidating">
+                <span *ngIf="!isZipValidating">
+                    <div class="icon-stack">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="#e3e3e3">
+                            <path
+                                d="M444-200h70v-50q50-9 86-39t36-89q0-42-24-77t-96-61q-60-20-83-35t-23-41q0-26 18.5-41t53.5-15q32 0 50 15.5t26 38.5l64-26q-11-35-40.5-61T516-710v-50h-70v50q-50 11-78 44t-28 74q0 47 27.5 76t86.5 50q63 23 87.5 41t24.5 47q0 33-23.5 48.5T486-314q-33 0-58.5-20.5T390-396l-66 26q14 48 43.5 77.5T444-252v52Zm36 120q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+                            class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                        </svg>
+                    </div>
+                </span>
+                <span *ngIf="isZipValidating" class="loader"></span>
+            </button>
+
+            <!-- Submit button -->
+            <button class="btn submit-btn" type="submit"
+                    *ngIf="currentStep === questions.length - 1"
+                    [disabled]="isSubmitting || isSubmitted">
+                <span *ngIf="!isSubmitting">
+                    <div class="icon-stack">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px"
+                            fill="#e3e3e3">
+                            <path
+                                d="M336-120q-91 0-153.5-62.5T120-336q0-38 13-74t37-65l142-171-97-194h530l-97 194 142 171q24 29 37 65t13 74q0 91-63 153.5T624-120H336Zm144-200q-33 0-56.5-23.5T400-400q0-33 23.5-56.5T480-480q33 0 56.5 23.5T560-400q0 33-23.5 56.5T480-320Zm-95-360h190l40-80H345l40 80Zm-49 480h288q57 0 96.5-39.5T760-336q0-24-8.5-46.5T728-423L581-600H380L232-424q-15 18-23.5 41t-8.5 47q0 57 39.5 96.5T336-200Z" />
+                        </svg>
+                    </div>
+                    Submit
+                </span>
+                <span *ngIf="isSubmitting" class="loader"></span>
+            </button>
+        </div>
+    </form>
+
+    <!-- Success popup -->
+    <div class="popup-overlay" *ngIf="isSubmitted">
+        <div class="popup-content">
+            <h3 class="popup-title">Thank You!</h3>
+            <p class="popup-message">Your application has been successfully submitted. We will be in touch shortly.</p>
+            <button class="popup-ok-btn" (click)="resetForm()">OK</button>
+        </div>

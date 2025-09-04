@@ -1,20 +1,24 @@
 <header class="site-header">
-  <!-- Left side (Logo) -->
-  <a routerLink="/" class="logo">QuickCashPoint</a>
+  <!-- Left side (Logo + Title) -->
+  <a routerLink="/" class="logo">
+    <img src="https://www.quickcashpoint.com/logo.webp" class="logo" alt="Logo">
+    <span class="logo-text">Quick Cash Point</span>
+  </a>
 
-  <!-- Right side (More + Apply) -->
+  <!-- Right side (More + Get Loan) -->
   <div class="right-section">
-    <div class="dropdown" (mouseleave)="closeDropdown()">
-      <button class="dropbtn" (click)="toggleDropdown()">More ▾</button>
-      <div class="dropdown-content" *ngIf="dropdownOpen">
-        <a routerLink="/faq" routerLinkActive="active">FAQ</a>
-        <a routerLink="/about" routerLinkActive="active">About</a>
-        <a routerLink="/contact" routerLinkActive="active">Contact</a>
-        <a routerLink="/company-policy" routerLinkActive="active">Company Policy</a>
-        <a routerLink="/privacy-policy" routerLinkActive="active">Privacy Policy</a>
-      </div>
+    <div class="dropdown">
+  <button class="dropbtn" (click)="toggleDropdown(); $event.stopPropagation()">More ▾</button>
+  <div class="dropdown-content" *ngIf="dropdownOpen" (click)="closeDropdown()">
+    <a routerLink="/faq" routerLinkActive="active">FAQ</a>
+    <a routerLink="/about" routerLinkActive="active">About</a>
+    <a routerLink="/contact" routerLinkActive="active">Contact</a>
+    <a routerLink="/company-policy" routerLinkActive="active">Company Policy</a>
+    <a routerLink="/privacy-policy" routerLinkActive="active">Privacy Policy</a>
+  </div>
+
     </div>
 
-    <a routerLink="/loans" routerLinkActive="active" class="apply-btn">Apply for Loan</a>
+    <a routerLink="/loans" routerLinkActive="active" class="apply-btn">Get Loan</a>
   </div>
 </header>
