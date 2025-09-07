@@ -229,7 +229,12 @@ export class Loans implements OnInit {
       '30+ years'
     ]
   },
-
+  {label: 'Best Time to Contact You', type: 'select', options: [
+    'Morning',
+    'Afternoon',
+    'Evening',
+    'Anytime'
+  ]},
   // ------------------ Agreement ------------------
   { label: 'User Terms & Conditions', type: 'checkbox' }
 ];
@@ -725,7 +730,6 @@ async submitForm() {
       state: formattedAnswers['whatIsYourState'] || '',
       zip: formattedAnswers['whatIsYourZipCode'] || '',
       monthlyIncome: formattedAnswers['whatIsYourMonthlyIncome'] || '',
-      employmentStatus: formattedAnswers['whatIsYourEmploymentStatus'] || '',
       creditScore: formattedAnswers['whatIsYourCreditScoreRange'] || '',
       city: formattedAnswers['whatIsYourCity'] || '',
       dob: formattedAnswers['dateOfBirth'] || '',
@@ -734,7 +738,7 @@ async submitForm() {
       loanPurpose: formattedAnswers['purposeOfLoan'] || '',
       firstName: formattedAnswers['legalFirstName'] || '',
       lastName: formattedAnswers['legalLastName'] || '',
-      ssn4: formattedAnswers['last4DigitsOfSsn'] || '',
+      ssn4: formattedAnswers['last4digitsOfSocialSecurityNumber(SSN)'] || '',
       activeMilitiary: formattedAnswers['activeMilitary'] || '',
       loanAmount: formattedAnswers['howMuchDoYouWantToBorrow'] || '',
       streetAddress: formattedAnswers['whatIsYourStreetAddress'] || '',
@@ -756,7 +760,8 @@ async submitForm() {
       idNumber: formattedAnswers['idNumber'] || '',
       homeOwnership: formattedAnswers['homeOwnershipStatus'] || '',
       carOwnership: formattedAnswers['carOwnershipStatus'] || '',
-
+      timeLived: formattedAnswers['howLongHaveYouLivedAtThisAddress'] || '',
+      bestTimeToContact: formattedAnswers['bestTimeToContactYou'] || '',
       // ✅ Optional fields
       aff_id: sessionStorage.getItem('aff_id') || this.affId || null,
       sub_aff_id: sessionStorage.getItem('sub_aff_id') || this.subAffId || null,
