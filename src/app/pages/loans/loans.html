@@ -35,15 +35,25 @@
                 </option>
             </select>
 
+            <!-- Next Pay Date date input with dynamic min/max -->
+            <input *ngIf="questions[currentStep].label === 'Next Pay Date'"
+                   type="date"
+                   class="input-field"
+                   [min]="getMinMaxNextPayDate().min"
+                   [max]="getMinMaxNextPayDate().max"
+                   [(ngModel)]="answers[currentStep]"
+                   [ngModelOptions]="{standalone: true}" />
+
 <input 
   *ngIf="['text','date','tel','email','password','number']
-        .includes(questions[currentStep].inputType || questions[currentStep].type)"
+        .includes(questions[currentStep].inputType || questions[currentStep].type)
+        && questions[currentStep].label !== 'Next Pay Date'"
         [type]="questions[currentStep].inputType || questions[currentStep].type"
         [(ngModel)]="answers[currentStep]"
         class="input-field"
         [placeholder]="questions[currentStep].placeholder || ''"
         [attr.maxlength]="questions[currentStep].maxLength ? questions[currentStep].maxLength : null"
-        (input)="errorMessage = ''"
+        (input)="onFieldInput($event)"
         [ngModelOptions]="{standalone: true}"
         [disabled]="isSubmitting || isSubmitted || 
         (currentStep === ZIP_CODE_QUESTION_INDEX && isZipValidating)" 
