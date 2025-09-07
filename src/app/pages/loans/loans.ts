@@ -775,7 +775,7 @@ async submitForm() {
     console.log('Submitting payload:', payload);
 
     // ✅ POST to backend
-    const response = await fetch('https://quickcashpoint/api/ping-proxy.php', {
+    const response = await fetch('https://quickcashpoint.com/api/ping-proxy.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
