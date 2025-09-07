@@ -601,8 +601,8 @@ export class Loans implements OnInit {
     ) {
       const dobAns = currentAnswer as DobAnswer;
       if (!dobAns.dobMonth || !dobAns.dobDay || !dobAns.dobYear) {
-      this.errorMessage = 'Please complete your date of birth.';
-      return;
+        this.errorMessage = 'Please complete your date of birth.';
+        return;
       }
     }
 
@@ -688,6 +688,16 @@ async submitForm() {
     return;
   }
 
+  // ✅ Must have universalLeadid
+  const leadIdValue = (document.getElementById('universal_leadid') as HTMLInputElement)?.value || '';
+  if (!leadIdValue) {
+    this.errorMessage = 'Universal LeadID is required. Please wait for it to load and try again.';
+    this.isSubmitting = false;
+    return;
+  }
+  this.universalLeadid = leadIdValue;
+  sessionStorage.setItem('universalLeadid', leadIdValue);
+
   // ✅ Validate all fields except tid, aff_id, sub_aff_id
   const emptyIndex = this.answers.findIndex((a, i) => {
     const key = this.questions[i].label.toLowerCase();
@@ -723,8 +733,22 @@ async submitForm() {
       const mm = String(dobRaw.dobMonth || '').padStart(2, '0');
       const dd = String(dobRaw.dobDay || '').padStart(2, '0');
       const yyyy = String(dobRaw.dobYear || '');
-      formattedAnswers['dateOfBirth'] = `${mm}-${dd}-${yyyy}`;
+      formattedAnswers['dateOfBirth'] = `${mm}/${dd}/${yyyy}`;
     }
+
+    // ✅ Format Next Pay Date as mm/dd/yyyy
+    if (formattedAnswers['nextPayDate']) {
+      const npd = new Date(formattedAnswers['nextPayDate']);
+      if (!isNaN(npd.getTime())) {
+        const mm = String(npd.getMonth() + 1).padStart(2, '0');
+        const dd = String(npd.getDate()).padStart(2, '0');
+        const yyyy = npd.getFullYear();
+        formattedAnswers['nextPayDate'] = `${mm}/${dd}/${yyyy}`;
+      }
+    }
+
+    // ✅ Fix SSN4 key
+    formattedAnswers['ssn4'] = this.answers[this.SSN_QUESTION_INDEX] || '';
 
     const payload = {
       state: formattedAnswers['whatIsYourState'] || '',
@@ -738,7 +762,7 @@ async submitForm() {
       loanPurpose: formattedAnswers['purposeOfLoan'] || '',
       firstName: formattedAnswers['legalFirstName'] || '',
       lastName: formattedAnswers['legalLastName'] || '',
-      ssn4: formattedAnswers['last4digitsOfSocialSecurityNumber(SSN)'] || '',
+      ssn4: formattedAnswers['ssn4'] || '',
       activeMilitiary: formattedAnswers['activeMilitary'] || '',
       loanAmount: formattedAnswers['howMuchDoYouWantToBorrow'] || '',
       streetAddress: formattedAnswers['whatIsYourStreetAddress'] || '',
@@ -772,7 +796,7 @@ async submitForm() {
       tcpaConsent: this.tcpaConsent,
       TcpaText: this.TcpaText,
       userTermsAndConditions: this.answers[this.TERMS_QUESTION_INDEX] === true,
-      universalLeadid: sessionStorage.getItem('universalLeadid') || this.universalLeadid || '',
+      universalLeadid: this.universalLeadid || '',
       xxTrustedFormCertUrl: sessionStorage.getItem('xxTrustedFormCertUrl') || this.trustedFormCertUrl || '',
       ipAddress: this.ipAddress
     };
@@ -878,39 +902,60 @@ async submitForm() {
     }
   }
 
-  private injectLeadiD() {
-    try {
-      if (document.getElementById('LeadiDscript_campaign')) return;
+private injectLeadiD(): void {
+  try {
+    // Ensure the hidden input exists with the correct id and name
+    let leadIdInput = document.getElementById('leadid_token') as HTMLInputElement | null;
+    if (!leadIdInput) {
+      const input = document.createElement('input') as HTMLInputElement;
+      input.type = 'hidden';
+      input.id = 'leadid_token';
+      input.name = 'universal_leadid';
+      document.body.appendChild(input);
+      leadIdInput = input;
+    }
 
+    // Remove old script if it exists
+    const oldScript = document.getElementById('LeadiDscript_campaign');
+    if (oldScript) {
+      oldScript.parentNode?.removeChild(oldScript);
+    }
+
+    // Ensure anchor script exists
+    let anchor = document.getElementById('LeadiDscript') as HTMLScriptElement | null;
+    if (!anchor) {
+      anchor = document.createElement('script') as HTMLScriptElement;
+      anchor.id = 'LeadiDscript';
+      anchor.type = 'text/javascript';
+      document.body.appendChild(anchor);
+    }
+
+    // Inject campaign script (only if anchor exists now)
+    if (anchor.parentNode) {
       const s = document.createElement('script');
       s.id = 'LeadiDscript_campaign';
       s.type = 'text/javascript';
       s.async = true;
       s.src = '//create.lidstatic.com/campaign/548c86c2-3c24-2ec2-b201-274ffb0f5005.js?snippet_version=2';
-
-      const anchor = document.getElementById('LeadiDscript');
-      if (anchor && anchor.parentNode) {
-        anchor.parentNode.insertBefore(s, anchor);
-      } else {
-        const firstScript = document.getElementsByTagName('script')[0];
-        firstScript.parentNode?.insertBefore(s, firstScript);
-      }
-
-      // Poll the hidden field for the value populated by the LeadiD script
-      const start = Date.now();
-      const poll = () => {
-        const el = document.getElementById('universal_leadid') as HTMLInputElement | null;
-        const val = el?.value || '';
-        if (val) {
-          this.universalLeadid = val;
-          sessionStorage.setItem('universalLeadid', val);
-        } else if (Date.now() - start < 15000) {
-          setTimeout(poll, 300);
-        }
-      };
-      setTimeout(poll, 500);
-    } catch (e) {
-      console.error('Failed to inject LeadiD:', e);
+      anchor.parentNode.insertBefore(s, anchor);
     }
+
+    // Poll for value until success
+    const start = Date.now();
+    const poll = () => {
+      const el = document.getElementById('leadid_token') as HTMLInputElement | null;
+      const val = el?.value || '';
+      if (val) {
+        this.universalLeadid = val;
+        sessionStorage.setItem('universal_leadid', val);
+      } else if (Date.now() - start < 15000) {
+        setTimeout(poll, 300);
+      }
+    };
+    setTimeout(poll, 500);
+  } catch (e) {
+    console.error('Failed to inject LeadiD:', e);
   }
+}
+
 }
