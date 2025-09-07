@@ -688,15 +688,16 @@ async submitForm() {
     return;
   }
 
-  // ✅ Must have universalLeadid
-  const leadIdValue = (document.getElementById('universal_leadid') as HTMLInputElement)?.value || '';
-  if (!leadIdValue) {
-    this.errorMessage = 'Universal LeadID is required. Please wait for it to load and try again.';
-    this.isSubmitting = false;
-    return;
-  }
-  this.universalLeadid = leadIdValue;
-  sessionStorage.setItem('universalLeadid', leadIdValue);
+  const leadIdValue = (document.getElementById('leadid_token') as HTMLInputElement)?.value || '';
+if (!leadIdValue) {
+  this.errorMessage = 'Universal LeadID is required. Please wait for it to load and try again.';
+  this.isSubmitting = false;
+  return;
+}
+
+this.universalLeadid = leadIdValue;
+sessionStorage.setItem('universal_leadid', leadIdValue);
+
 
   // ✅ Validate all fields except tid, aff_id, sub_aff_id
   const emptyIndex = this.answers.findIndex((a, i) => {
