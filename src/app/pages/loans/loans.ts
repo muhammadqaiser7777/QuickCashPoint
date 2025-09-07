@@ -786,7 +786,10 @@ async submitForm() {
     if (response.ok && result.success) {
       this.isSubmitted = true;
       this.errorMessage = '';
-      console.log(response);
+
+      // ✅ Log parsed JSON instead of raw Response
+      console.log("✅ Proxy response JSON:", result);
+
       sessionStorage.removeItem('loanForm');
 
       // Cleanup TrustedForm
