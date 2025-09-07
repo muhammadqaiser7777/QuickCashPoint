@@ -786,6 +786,7 @@ async submitForm() {
     if (response.ok && result.success) {
       this.isSubmitted = true;
       this.errorMessage = '';
+      console.log(response);
       sessionStorage.removeItem('loanForm');
 
       // Cleanup TrustedForm
