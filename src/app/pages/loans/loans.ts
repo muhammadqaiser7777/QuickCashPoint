@@ -244,6 +244,7 @@ export class Loans implements OnInit {
   answers: any[] = [];
   errorMessage: string = '';
   private ipAddress: string | null = null;
+  private browserUserAgent: string = '';
   isSubmitting = false;
   isSubmitted = false;
   isZipValidating = false;
@@ -280,6 +281,9 @@ export class Loans implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
+    // Capture browser user agent
+    this.browserUserAgent = navigator.userAgent;
+
     // Initialize DOB years dynamically: (currentYear - 18) down to (currentYear - 100)
     const nowYearInit = new Date().getFullYear();
     const maxYearInit = nowYearInit - 18;
@@ -799,7 +803,8 @@ sessionStorage.setItem('universal_leadid', leadIdValue);
       userTermsAndConditions: this.answers[this.TERMS_QUESTION_INDEX] === true,
       universalLeadid: this.universalLeadid || '',
       xxTrustedFormCertUrl: sessionStorage.getItem('xxTrustedFormCertUrl') || this.trustedFormCertUrl || '',
-      ipAddress: this.ipAddress
+      ipAddress: this.ipAddress,
+      browser: this.browserUserAgent
     };
 
     console.log('Submitting payload:', payload);
