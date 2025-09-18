@@ -20,11 +20,11 @@ export class Faq {
   faqs: FAQ[] = [
     {
       q: 'What is Quick Cash Point and what do you do?',
-      a: `Quick Cash Point is a lead-generation platform that connects consumers who need loan products with verified third-party lenders and buyers. We do not originate loans or make lending decisions — our role is to securely collect and forward consumer information to lender partners who may contact you with offers.`
+      a: `Quick Cash Point is a lead-generation platform that connects consumers who need loan products with verified third-party lenders and buyers. We do not originate loans or make lending decisions — our role is to securely collect and forward consumer information to lender partners who will contact you with offers.`
     },
     {
       q: 'How does the lead matching process work?',
-      a: `You provide your details through our secure form. We pre-screen and match your profile to lenders in our network based on the information you provide (credit range, loan type, location, etc.). Lenders we match to may review your information and contact you with offers; you decide whether to accept any offer. Examples of this workflow are common across lending marketplaces and lead providers. :contentReference[oaicite:0]{index=0}`
+      a: `You provide your details through our secure form. We pre-screen and match your profile to lenders in our network based on the information you provide (credit range, loan type, location, etc.). Lenders we match to will review your information and contact you with offers; you decide whether to accept any offer. Examples of this workflow are common across lending marketplaces and lead providers. :contentReference[oaicite:0]{index=0}`
     },
     {
       q: 'Do you provide loans directly?',
@@ -32,11 +32,11 @@ export class Faq {
     },
     {
       q: 'What information do you collect?',
-      a: `We may collect contact details (name, phone, email), location, employment and income details, and loan preferences. We also collect technical data such as IP address and device/browser info for security and analytics. We avoid collecting more data than necessary and follow data-minimization practices. :contentReference[oaicite:1]{index=1}`
+      a: `We will collect contact details (name, phone, email), location, employment and income details, and loan preferences. We also collect technical data such as IP address and device/browser info for security and analytics. We avoid collecting more data than necessary and follow data-minimization practices. :contentReference[oaicite:1]{index=1}`
     },
     {
       q: 'How is my information shared with lenders?',
-      a: `When you submit a request, your information is securely transmitted to selected lenders and buyers in our network for evaluation. Those parties may contact you directly to discuss offers. We require partners to meet baseline data security and privacy expectations, but each lender may have its own privacy practices and terms.`
+      a: `When you submit a request, your information is securely transmitted to selected lenders and buyers in our network for evaluation. Those parties will contact you directly to discuss offers. We require partners to meet baseline data security and privacy expectations, but each lender may have its own privacy practices and terms.`
     },
     {
       q: 'Can I opt out or delete my data?',
@@ -48,7 +48,7 @@ export class Faq {
     },
     {
       q: 'Will Quick Cash Point sell my data?',
-      a: `We may disclose leads to third-party buyers and partners as part of our business model. Where applicable under the law, we will provide opt-out mechanisms for consumers who do not want their data sold. If you are a California resident, you can exercise your rights under CCPA to opt out of sales. :contentReference[oaicite:4]{index=4}`
+      a: `We will disclose leads to approved third-party buyers and partners as part of our business model. Where applicable under the law, we will provide opt-out mechanisms for consumers who do not want their data sold. If you are a California resident, you can exercise your rights under CCPA to opt out of sales. :contentReference[oaicite:4]{index=4}`
     },
     {
       q: 'How do you protect my information?',

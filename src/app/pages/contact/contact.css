@@ -2,7 +2,7 @@
   max-width: 800px;
   margin: 60px auto;
   padding: 20px;
-  text-align: center;
+  text-align: center; /* Centers tagline section */
 }
 
 .tagline h2 {
@@ -21,22 +21,26 @@
 .info-section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
+  max-width: 450px;
+  margin: 0 auto; /* Centers the info section */
 }
 
 .info-row {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
+  align-items: flex-start;
   font-size: 1.1rem;
 }
 
 .info-label {
   font-weight: bold;
   color: #396C40; /* Green accent */
-  min-width: 100px;
-  text-align: right;
+  text-align: left;
+}
+
+.info-data {
+  flex: 1;            /* Take remaining space */
+  text-align: right;   /* Content sits right after the label */
 }
 
 .info-data a {

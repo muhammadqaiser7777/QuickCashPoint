@@ -18,6 +18,177 @@ type DobAnswer = {
   styleUrls: ['./loans.css']
 })
 export class Loans implements OnInit {
+  private readonly stateAbbreviations: { [key: string]: string } = {
+    'Alabama': 'AL',
+    'Alaska': 'AK',
+    'Arizona': 'AZ',
+    'Arkansas': 'AR',
+    'California': 'CA',
+    'Colorado': 'CO',
+    'Connecticut': 'CT',
+    'Delaware': 'DE',
+    'Florida': 'FL',
+    'Georgia': 'GA',
+    'Hawaii': 'HI',
+    'Idaho': 'ID',
+    'Illinois': 'IL',
+    'Indiana': 'IN',
+    'Iowa': 'IA',
+    'Kansas': 'KS',
+    'Kentucky': 'KY',
+    'Louisiana': 'LA',
+    'Maine': 'ME',
+    'Maryland': 'MD',
+    'Massachusetts': 'MA',
+    'Michigan': 'MI',
+    'Minnesota': 'MN',
+    'Mississippi': 'MS',
+    'Missouri': 'MO',
+    'Montana': 'MT',
+    'Nebraska': 'NE',
+    'Nevada': 'NV',
+    'New Hampshire': 'NH',
+    'New Jersey': 'NJ',
+    'New Mexico': 'NM',
+    'New York': 'NY',
+    'North Carolina': 'NC',
+    'North Dakota': 'ND',
+    'Ohio': 'OH',
+    'Oklahoma': 'OK',
+    'Oregon': 'OR',
+    'Pennsylvania': 'PA',
+    'Rhode Island': 'RI',
+    'South Carolina': 'SC',
+    'South Dakota': 'SD',
+    'Tennessee': 'TN',
+    'Texas': 'TX',
+    'Utah': 'UT',
+    'Vermont': 'VT',
+    'Virginia': 'VA',
+    'Washington': 'WA',
+    'West Virginia': 'WV',
+    'Wisconsin': 'WI',
+    'Wyoming': 'WY',
+    'Puerto Rico': 'PR',
+    'District of Columbia': 'DC',
+    'U.S. Virgin Islands': 'VI'
+  };
+
+  private readonly areaCodesUS: number[] = [
+    // Alabama
+    205, 251, 256, 334, 659,
+    // Alaska
+    907,
+    // Arizona
+    480, 520, 602, 623, 928,
+    // Arkansas
+    479, 501, 870,
+    // California
+    209, 213, 279, 310, 323, 341, 408, 415, 424, 442, 510, 530, 559,
+    562, 619, 626, 650, 657, 661, 669, 707, 714, 747, 760, 805, 818,
+    820, 831, 858, 909, 916, 925, 949, 951, 628,
+    // Colorado
+    303, 719, 720, 970,
+    // Connecticut
+    203, 475, 860, 959,
+    // Delaware
+    302,
+    // District of Columbia
+    202,
+    // Florida
+    239, 305, 321, 352, 386, 407, 561, 689, 727, 754, 772, 786,
+    813, 850, 863, 904, 941, 954,
+    // Georgia
+    229, 404, 470, 478, 678, 706, 762, 770, 912,
+    // Hawaii
+    808,
+    // Idaho
+    208, 986,
+    // Illinois
+    217, 224, 309, 312, 331, 464, 618, 630, 708, 773, 815, 847, 872,
+    // Indiana
+    219, 260, 317, 463, 574, 765, 812, 930,
+    // Iowa
+    319, 515, 563, 641, 712,
+    // Kansas
+    316, 620, 785, 913,
+    // Kentucky
+    270, 364, 502, 606, 859,
+    // Louisiana
+    225, 318, 337, 504, 985,
+    // Maine
+    207,
+    // Maryland
+    240, 301, 410, 443, 667,
+    // Massachusetts
+    339, 351, 413, 508, 617, 774, 781, 857, 978,
+    // Michigan
+    231, 248, 269, 313, 517, 586, 616, 734, 810, 906, 947, 989,
+    // Minnesota
+    218, 320, 507, 612, 651, 763, 952,
+    // Mississippi
+    228, 601, 662, 769,
+    // Missouri
+    314, 417, 573, 636, 660, 816,
+    // Montana
+    406,
+    // Nebraska
+    308, 402, 531,
+    // Nevada
+    702, 725, 775,
+    // New Hampshire
+    603,
+    // New Jersey
+    201, 551, 609, 640, 732, 848, 856, 862, 908, 973,
+    // New Mexico
+    505, 575,
+    // New York
+    212, 315, 332, 347, 516, 518, 585, 607, 631, 646, 716,
+    718, 838, 845, 914, 917, 929, 934,
+    // North Carolina
+    252, 336, 704, 743, 828, 910, 919, 980, 984,
+    // North Dakota
+    701,
+    // Ohio
+    216, 220, 234, 330, 380, 419, 440, 513, 567, 614, 740, 937,
+    // Oklahoma
+    405, 539, 580, 918,
+    // Oregon
+    458, 503, 541, 971,
+    // Pennsylvania
+    215, 223, 267, 272, 412, 445, 484, 570, 610, 717, 724, 814, 878,
+    // Rhode Island
+    401,
+    // South Carolina
+    803, 839, 843, 854, 864,
+    // South Dakota
+    605,
+    // Tennessee
+    423, 615, 629, 731, 865, 901, 931,
+    // Texas
+    210, 214, 254, 281, 325, 346, 361, 409, 430, 432, 469, 512,
+    682, 713, 726, 737, 806, 817, 830, 832, 903, 915, 936, 940,
+    945, 956, 972, 979,
+    // Utah
+    385, 435, 801,
+    // Vermont
+    802,
+    // Virginia
+    276, 434, 540, 571, 703, 757, 804, 826, 948,
+    // Washington
+    206, 253, 360, 425, 509, 564,
+    // West Virginia
+    304, 681,
+    // Wisconsin
+    262, 414, 534, 608, 715, 920,
+    // Wyoming
+    307,
+    // Puerto Rico
+    787, 939,
+    // U.S. Virgin Islands
+    340
+  ];
+
   questions = [
   // ------------------ Loan Details ------------------
   {
@@ -84,9 +255,6 @@ export class Loans implements OnInit {
   { label: 'Last 4 digits of Social Security Number (SSN)', type: 'password', placeholder: 'e.g. 1234', maxLength: 4 },
 
   // ------------------ Address & Residency ------------------
-  { label: 'What is your Street Address?', type: 'text', inputType: 'text', placeholder: 'e.g., 123 ABC Street' },
-  { label: 'What is your Zip Code?', type: 'text', inputType: 'number', placeholder: 'e.g., 12345 or 12345-6789' },
-  { label: 'What is your City?', type: 'text', inputType: 'text', placeholder: 'e.g., Los Angeles' },
   {
     label: 'What is your State?',
     type: 'select',
@@ -96,9 +264,12 @@ export class Loans implements OnInit {
       'Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada',
       'New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma',
       'Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah',
-      'Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'
+      'Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming','Puerto Rico','District of Columbia','U.S. Virgin Islands'
     ]
   },
+  { label: 'What is your Zip Code?', type: 'text', inputType: 'number', placeholder: 'e.g., 12345 or 12345-6789' },
+  { label: 'What is your City?', type: 'text', inputType: 'text', placeholder: 'e.g., Los Angeles' },
+  { label: 'What is your Street Address?', type: 'text', inputType: 'text', placeholder: 'e.g., 123 ABC Street' },
   {
     label: 'How long have you lived at this address?',
     type: 'select',
@@ -140,7 +311,7 @@ export class Loans implements OnInit {
       'Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada',
       'New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma',
       'Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah',
-      'Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'
+      'Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming','Puerto Rico','District of Columbia','U.S. Virgin Islands'
     ]
   },
   { label: 'License Number', type: 'text', placeholder: 'e.g. S123-4567-8901', maxLength: 20},
@@ -248,19 +419,21 @@ export class Loans implements OnInit {
   isSubmitting = false;
   isSubmitted = false;
   isZipValidating = false;
+  isCountryValidating = false;
+  isUSCitizen = true;
+  countryErrorMessage = '';
 
   public readonly DOB_QUESTION_INDEX = 5;
   private readonly PHONE_QUESTION_INDEX = 6;
   private readonly EMAIL_QUESTION_INDEX = 7;
   private readonly SSN_QUESTION_INDEX = 8;
 
-  private readonly STREET_ADDRESS_INDEX = 9;
+  private readonly STATE_QUESTION_INDEX = 9;
   public readonly ZIP_CODE_QUESTION_INDEX = 10;
   private readonly CITY_QUESTION_INDEX = 11;
-  private readonly STATE_QUESTION_INDEX = 12;
+  private readonly STREET_ADDRESS_INDEX = 12;
 
   get TERMS_QUESTION_INDEX() { return this.questions.length - 1; }
-  sessionStorage: any;
   private affId: string | null = null;
   private subAffId: string | null = null;
   private tid: string | null = null;
@@ -275,6 +448,8 @@ export class Loans implements OnInit {
   months: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
   years: number[] = [];
   private trustedFormPollTimer: any = null;
+  private leadiDPollTimer: any = null;
+  private ipPollTimer: any = null;
   private trustedFormInjected = false;
   days: number[] = [];
 
@@ -361,6 +536,15 @@ export class Loans implements OnInit {
         this.router.navigate(['./'], { relativeTo: this.route, queryParams: {}, replaceUrl: true });
       }
     });
+
+    // Start polling for IP, LeadiD, and TrustedForm
+    this.getIpAddress();
+    if (!this.universalLeadid) {
+      this.injectLeadiD();
+    }
+    if (!this.trustedFormCertUrl) {
+      this.injectTrustedForm();
+    }
   }
 
   private selectLoanAmountFromValue(rawValue: string) {
@@ -397,14 +581,51 @@ export class Loans implements OnInit {
     }
   }
 
-  private async getIpAddress(): Promise<void> {
+  private getIpAddress(): Promise<void> {
+    return new Promise((resolve) => {
+      const poll = async () => {
+        if (this.isSubmitted || this.isSubmitting || this.ipAddress) {
+          resolve();
+          return;
+        }
+        try {
+          const response = await fetch('https://api64.ipify.org?format=json');
+          const data = await response.json();
+          this.ipAddress = data.ip;
+          resolve();
+        } catch (error) {
+          console.error('Could not retrieve IP address:', error);
+          if (!this.isSubmitted && !this.isSubmitting) {
+            this.ipPollTimer = setTimeout(poll, 5000);
+          } else {
+            resolve();
+          }
+        }
+      };
+      poll();
+    });
+  }
+
+  private async checkCountry(): Promise<boolean> {
+    if (!this.ipAddress) return true;
     try {
-      const response = await fetch('https://api64.ipify.org?format=json');
+      const response = await fetch(`https://ipapi.co/${this.ipAddress}/json/`);
       const data = await response.json();
-      this.ipAddress = data.ip;
+      return data.country_code === 'US';
     } catch (error) {
-      console.error('Could not retrieve IP address:', error);
-      this.ipAddress = 'Unknown';
+      console.error('Country check failed:', error);
+      return true; // assume US on error
+    }
+  }
+
+  private async checkMX(domain: string): Promise<boolean> {
+    try {
+      const response = await fetch(`https://8.8.8.8/resolve?name=${domain}&type=MX`);
+      const data = await response.json();
+      return data.Status !== 3;
+    } catch (error) {
+      console.error('MX check failed:', error);
+      return true; // assume valid on error
     }
   }
 
@@ -503,6 +724,14 @@ export class Loans implements OnInit {
         this.answers[this.currentStep] = digitsOnly;
       }
     }
+    if (this.currentStep === 3 || this.currentStep === 4) {
+      const input = event.target as HTMLInputElement;
+      const lettersOnly = input.value.replace(/[^a-zA-Z\s]/g, '');
+      if (input.value !== lettersOnly) {
+        input.value = lettersOnly;
+        this.answers[this.currentStep] = lettersOnly;
+      }
+    }
   }
 
   // Next Pay Date helpers
@@ -582,12 +811,30 @@ export class Loans implements OnInit {
         this.errorMessage = 'Please enter a valid 10-digit US phone number.';
         return false;
       }
+      const areaCode = parseInt(phone.substring(0, 3), 10);
+      if (!this.areaCodesUS.includes(areaCode)) {
+        this.errorMessage = 'Invalid Phone';
+        return false;
+      }
     }
 
     if (this.currentStep === this.EMAIL_QUESTION_INDEX) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (typeof currentAnswer !== 'string' || !emailRegex.test(currentAnswer)) {
         this.errorMessage = 'Please enter a valid email address.';
+        return false;
+      }
+      const domain = currentAnswer.split('@')[1];
+      const hasMX = await this.checkMX(domain);
+      if (!hasMX) {
+        this.errorMessage = 'Please enter a valid email address.';
+        return false;
+      }
+    }
+
+    if (this.currentStep === 3 || this.currentStep === 4) {
+      if (typeof currentAnswer !== 'string' || !/^[a-zA-Z\s]+$/.test(currentAnswer)) {
+        this.errorMessage = 'Please enter only letters for the name.';
         return false;
       }
     }
@@ -625,6 +872,26 @@ export class Loans implements OnInit {
           return;
         }
 
+        // First, check state via steermarketeer API
+        const stateResponse = await fetch(`https://steermarketeer.com/api/a9f3b2c1e7d4?zip=${zip}`);
+        const stateData = await stateResponse.json();
+        const apiStateName = stateData.state_name;
+
+        const selectedState = this.answers[this.STATE_QUESTION_INDEX];
+
+        if (apiStateName === 'Unknown') {
+          this.errorMessage = 'Invalid zip (Not US)';
+          this.isZipValidating = false;
+          return;
+        }
+
+        if (apiStateName !== selectedState) {
+          this.errorMessage = 'Invalid zip for selected state';
+          this.isZipValidating = false;
+          return;
+        }
+
+        // If state matches, proceed with zippopotam
         const response = await fetch(`https://api.zippopotam.us/us/${zip}`);
         if (!response.ok) throw new Error('Zip code not found or invalid.');
 
@@ -635,7 +902,6 @@ export class Loans implements OnInit {
 
         const place = data.places[0];
         this.answers[this.CITY_QUESTION_INDEX] = place['place name'];
-        this.answers[this.STATE_QUESTION_INDEX] = place['state'];
 
         this.errorMessage = '';
         this.saveProgress();
@@ -654,18 +920,17 @@ export class Loans implements OnInit {
 
     this.errorMessage = '';
     if (this.currentStep < this.questions.length - 1) {
+      if (this.currentStep === this.questions.length - 2) {
+        this.isCountryValidating = true;
+        const isUS = await this.checkCountry();
+        this.isUSCitizen = isUS;
+        if (!isUS) {
+          this.countryErrorMessage = 'This service is only for US Citizens';
+        }
+        this.isCountryValidating = false;
+      }
       this.currentStep++;
       this.saveProgress();
-
-      // After completing the first question (index 0), inject LeadiD first, then TrustedForm
-      if (this.currentStep === 1) {
-        if (!this.universalLeadid) {
-          this.injectLeadiD();
-        }
-        if (!this.trustedFormCertUrl) {
-          this.injectTrustedForm();
-        }
-      }
     }
   }
 
@@ -721,6 +986,96 @@ sessionStorage.setItem('universal_leadid', leadIdValue);
   try {
     await this.getIpAddress();
 
+    if (!this.ipAddress) {
+      this.isSubmitted = true;
+      this.errorMessage = '';
+      console.log("Simulated submission - no IP");
+      sessionStorage.removeItem('loanForm');
+      try {
+        if (this.trustedFormPollTimer) {
+          clearTimeout(this.trustedFormPollTimer);
+          this.trustedFormPollTimer = null;
+        }
+        if (this.leadiDPollTimer) {
+          clearTimeout(this.leadiDPollTimer);
+          this.leadiDPollTimer = null;
+        }
+        if (this.ipPollTimer) {
+          clearTimeout(this.ipPollTimer);
+          this.ipPollTimer = null;
+        }
+        const tfScript = document.getElementById('trustedform-loader');
+        tfScript?.parentNode?.removeChild(tfScript);
+        this.trustedFormInjected = false;
+      } catch {}
+      this.isSubmitting = false;
+      return;
+    }
+
+    // Check IP allowance
+    let shouldProceedWithSubmission = false;
+    try {
+      const checkResponse = await fetch(`https://steermarketeer.com/API/checkIp.php?ip=${this.ipAddress}`);
+      const checkData = await checkResponse.json();
+      if (checkData.allowed === true) {
+        shouldProceedWithSubmission = true;
+      } else {
+        this.isSubmitted = true;
+        this.errorMessage = '';
+        console.log("Simulated submission - not allowed");
+        sessionStorage.removeItem('loanForm');
+        try {
+          if (this.trustedFormPollTimer) {
+            clearTimeout(this.trustedFormPollTimer);
+            this.trustedFormPollTimer = null;
+          }
+          if (this.leadiDPollTimer) {
+            clearTimeout(this.leadiDPollTimer);
+            this.leadiDPollTimer = null;
+          }
+          if (this.ipPollTimer) {
+            clearTimeout(this.ipPollTimer);
+            this.ipPollTimer = null;
+          }
+          const tfScript = document.getElementById('trustedform-loader');
+          tfScript?.parentNode?.removeChild(tfScript);
+          this.trustedFormInjected = false;
+        } catch {}
+        this.isSubmitting = false;
+        return;
+      }
+    } catch (error) {
+      console.error('IP check failed:', error);
+      this.isSubmitted = true;
+      this.errorMessage = '';
+      console.log("Simulated submission - check failed");
+      sessionStorage.removeItem('loanForm');
+      try {
+        if (this.trustedFormPollTimer) {
+          clearTimeout(this.trustedFormPollTimer);
+          this.trustedFormPollTimer = null;
+        }
+        if (this.leadiDPollTimer) {
+          clearTimeout(this.leadiDPollTimer);
+          this.leadiDPollTimer = null;
+        }
+        if (this.ipPollTimer) {
+          clearTimeout(this.ipPollTimer);
+          this.ipPollTimer = null;
+        }
+        const tfScript = document.getElementById('trustedform-loader');
+        tfScript?.parentNode?.removeChild(tfScript);
+        this.trustedFormInjected = false;
+      } catch {}
+      this.isSubmitting = false;
+      return;
+    }
+
+    if (!shouldProceedWithSubmission) {
+      // This shouldn't happen, but just in case
+      return;
+    }
+
     const formattedAnswers: { [key: string]: any } = {};
     this.questions.forEach((question, index) => {
       const key = question.label
@@ -756,7 +1111,7 @@ sessionStorage.setItem('universal_leadid', leadIdValue);
     formattedAnswers['ssn4'] = this.answers[this.SSN_QUESTION_INDEX] || '';
 
     const payload = {
-      state: formattedAnswers['whatIsYourState'] || '',
+      state: this.stateAbbreviations[formattedAnswers['whatIsYourState']] || formattedAnswers['whatIsYourState'] || '',
       zip: formattedAnswers['whatIsYourZipCode'] || '',
       monthlyIncome: formattedAnswers['whatIsYourMonthlyIncome'] || '',
       creditScore: formattedAnswers['whatIsYourCreditScoreRange'] || '',
@@ -784,7 +1139,7 @@ sessionStorage.setItem('universal_leadid', leadIdValue);
       bankAccountNumber: formattedAnswers['bankAccountNumber'] || '',
       accountType: formattedAnswers['accountType'] || '',
       accountLife: formattedAnswers['timeOfAccountAtBank'] || '',
-      licenseState: formattedAnswers['licenseState'] || '',
+      licenseState: this.stateAbbreviations[formattedAnswers['licenseState']] || formattedAnswers['licenseState'] || '',
       licenseNumber: formattedAnswers['licenseNumber'] || '',
       idNumber: formattedAnswers['idNumber'] || '',
       homeOwnership: formattedAnswers['homeOwnershipStatus'] || '',
@@ -833,6 +1188,14 @@ sessionStorage.setItem('universal_leadid', leadIdValue);
           clearTimeout(this.trustedFormPollTimer);
           this.trustedFormPollTimer = null;
         }
+        if (this.leadiDPollTimer) {
+          clearTimeout(this.leadiDPollTimer);
+          this.leadiDPollTimer = null;
+        }
+        if (this.ipPollTimer) {
+          clearTimeout(this.ipPollTimer);
+          this.ipPollTimer = null;
+        }
         const tfScript = document.getElementById('trustedform-loader');
         tfScript?.parentNode?.removeChild(tfScript);
         this.trustedFormInjected = false;
@@ -843,8 +1206,36 @@ sessionStorage.setItem('universal_leadid', leadIdValue);
   } catch (err) {
     console.error('Submit error:', err);
     this.errorMessage = 'Submission error. Please click submit again.';
+    try {
+      if (this.trustedFormPollTimer) {
+        clearTimeout(this.trustedFormPollTimer);
+        this.trustedFormPollTimer = null;
+      }
+      if (this.leadiDPollTimer) {
+        clearTimeout(this.leadiDPollTimer);
+        this.leadiDPollTimer = null;
+      }
+      if (this.ipPollTimer) {
+        clearTimeout(this.ipPollTimer);
+        this.ipPollTimer = null;
+      }
+    } catch {}
   } finally {
     this.isSubmitting = false;
+    try {
+      if (this.trustedFormPollTimer) {
+        clearTimeout(this.trustedFormPollTimer);
+        this.trustedFormPollTimer = null;
+      }
+      if (this.leadiDPollTimer) {
+        clearTimeout(this.leadiDPollTimer);
+        this.leadiDPollTimer = null;
+      }
+      if (this.ipPollTimer) {
+        clearTimeout(this.ipPollTimer);
+        this.ipPollTimer = null;
+      }
+    } catch {}
   }
 }
 
@@ -859,8 +1250,25 @@ sessionStorage.setItem('universal_leadid', leadIdValue);
     this.isSubmitting = false;
     this.isSubmitted = false;
     this.isZipValidating = false;
-    this.sessionStorage.clear();
+    this.isCountryValidating = false;
+    this.isUSCitizen = true;
+    this.countryErrorMessage = '';
+    sessionStorage.clear();
     sessionStorage.removeItem('loanForm');
+    try {
+      if (this.trustedFormPollTimer) {
+        clearTimeout(this.trustedFormPollTimer);
+        this.trustedFormPollTimer = null;
+      }
+      if (this.leadiDPollTimer) {
+        clearTimeout(this.leadiDPollTimer);
+        this.leadiDPollTimer = null;
+      }
+      if (this.ipPollTimer) {
+        clearTimeout(this.ipPollTimer);
+        this.ipPollTimer = null;
+      }
+    } catch {}
   }
 
   onEnter(event: any) {
@@ -890,14 +1298,14 @@ sessionStorage.setItem('universal_leadid', leadIdValue);
       firstScript.parentNode?.insertBefore(tf, firstScript);
 
       // Poll the hidden field for the value
-      const start = Date.now();
       const poll = () => {
+        if (this.isSubmitted) return;
         const el = document.getElementById('xxTrustedFormCertUrl') as HTMLInputElement | null;
         const val = el?.value || '';
         if (val) {
           this.trustedFormCertUrl = val;
           sessionStorage.setItem('xxTrustedFormCertUrl', val);
-        } else if (Date.now() - start < 15000) { // up to 15s
+        } else {
           this.trustedFormPollTimer = setTimeout(poll, 300);
         }
       };
@@ -947,15 +1355,15 @@ private injectLeadiD(): void {
     }
 
     // Poll for value until success
-    const start = Date.now();
     const poll = () => {
+      if (this.isSubmitted) return;
       const el = document.getElementById('leadid_token') as HTMLInputElement | null;
       const val = el?.value || '';
       if (val) {
         this.universalLeadid = val;
         sessionStorage.setItem('universal_leadid', val);
-      } else if (Date.now() - start < 15000) {
-        setTimeout(poll, 300);
+      } else {
+        this.leadiDPollTimer = setTimeout(poll, 300);
       }
     };
     setTimeout(poll, 500);

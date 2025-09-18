@@ -97,6 +97,7 @@
 
             <!-- Error message -->
             <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+            <div class="error-message" *ngIf="countryErrorMessage">{{ countryErrorMessage }}</div>
         </div>
 
         <!-- Navigation buttons -->
@@ -127,8 +128,8 @@
             <button class="btn next-btn" type="button"
                     *ngIf="currentStep < questions.length - 1"
                     (click)="nextStep()"
-                    [disabled]="isSubmitting || isSubmitted || isZipValidating">
-                <span *ngIf="!isZipValidating">
+                    [disabled]="isSubmitting || isSubmitted || isZipValidating || isCountryValidating">
+                <span *ngIf="!isZipValidating && !isCountryValidating">
                     <div class="icon-stack">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                             fill="#e3e3e3">
@@ -142,13 +143,13 @@
                         </svg>
                     </div>
                 </span>
-                <span *ngIf="isZipValidating" class="loader"></span>
+                <span *ngIf="isZipValidating || isCountryValidating" class="loader"></span>
             </button>
 
             <!-- Submit button -->
             <button class="btn submit-btn" type="submit"
                     *ngIf="currentStep === questions.length - 1"
-                    [disabled]="isSubmitting || isSubmitted">
+                    [disabled]="isSubmitting || isSubmitted || !isUSCitizen">
                 <span *ngIf="!isSubmitting">
                     <div class="icon-stack">
                         <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px"
