@@ -189,6 +189,119 @@ export class Loans implements OnInit {
     340
   ];
 
+  private readonly licenseRegexes: { [key: string]: RegExp } = {
+  'Alabama': /^\d{7}$/,
+  'Alaska': /^\d{7}$/,
+  'Arizona': /^[A-Z]?\d{8,9}$/,
+  'Arkansas': /^\d{9}$/,
+  'California': /^[A-Z]\d{7}$/,
+  'Colorado': /^\d{9}$/,
+  'Connecticut': /^\d{9}$/,
+  'Delaware': /^[A-Z]\d{6}$/,
+  'District of Columbia': /^\d{9}$/,
+  'Florida': /^[A-Z]\d{12}$/,
+  'Georgia': /^\d{7,9}$/,  // Updated
+  'Hawaii': /^\d{9}$/,
+  'Idaho': /^[A-Z]{2}\d{6}[A-Z]$/,
+  'Illinois': /^[A-Z]\d{11}$/,
+  'Indiana': /^\d{10}$/,
+  'Iowa': /^\d{9}$/,
+  'Kansas': /^\d{9}$/,
+  'Kentucky': /^[A-Z]\d{8}$/,
+  'Louisiana': /^\d{9}$/,
+  'Maine': /^\d{7}$/,
+  'Maryland': /^[A-Z]\d{12}$/,
+  'Massachusetts': /^\d{9}$/,
+  'Michigan': /^[A-Z]\d{10}$/, // Fixed
+  'Minnesota': /^[A-Z]\d{12}$/,
+  'Mississippi': /^\d{9}$/,
+  'Missouri': /^\d{9}$/,
+  'Montana': /^[A-Z]{2}\d{6}$/,
+  'Nebraska': /^[A-Z]\d{6,8}$/,
+  'Nevada': /^(?:\d{9}|[A-Z]\d{9})$/, // Fixed
+  'New Hampshire': /^[A-Z]{2}\d{6}$/,
+  'New Jersey': /^[A-Z]\d{14}$/, // Fixed
+  'New Mexico': /^\d{9}$/,
+  'New York': /^(?:\d{9}|[A-Z]\d{18})$/, // Fixed
+  'North Carolina': /^\d{1,12}$/, // Fixed
+  'North Dakota': /^[A-Z]{3}\d{6}$/,
+  'Ohio': /^[A-Z]{2}\d{6}$/,
+  'Oklahoma': /^[A-Z]\d{9}$/,
+  'Oregon': /^(?:\d{7}|[A-Z]\d{6})$/, // Fixed
+  'Pennsylvania': /^\d{8}$/,
+  'Rhode Island': /^\d{7}$/,
+  'South Carolina': /^\d{9}$/,
+  'South Dakota': /^\d{8}$/,
+  'Tennessee': /^\d{9}$/,
+  'Texas': /^\d{8}$/,
+  'Utah': /^\d{9}$/,
+  'Vermont': /^\d{8}$/,
+  'Virginia': /^[A-Z]\d{8}$/,
+  'Washington': /^[A-Z][A-Z0-9]{11}$/, // Fixed
+  'West Virginia': /^\d{7}$/,
+  'Wisconsin': /^\d{8}$/,
+  'Wyoming': /^\d{9}$/,
+  'Puerto Rico': /^\d{9}$/,
+  'U.S. Virgin Islands': /^\d{9}$/,
+};
+private readonly idRegexes: { [key: string]: RegExp } = {
+  'Alabama': /^\d{7}$/,
+  'Alaska': /^\d{7}$/,
+  'Arizona': /^[A-Z]?\d{8,9}$/,
+  'Arkansas': /^\d{9}$/,
+  'California': /^[A-Z]\d{7}$/,
+  'Colorado': /^\d{9}$/,
+  'Connecticut': /^\d{9}$/,
+  'Delaware': /^\d{1,7}$/, // corrected
+  'District of Columbia': /^\d{9}$/,
+  'Florida': /^[A-Z]\d{12}$/,
+  'Georgia': /^\d{7,9}$/,
+  'Hawaii': /^\d{9}$/,
+  'Idaho': /^[A-Z]{2}\d{6}[A-Z]$/,
+  'Illinois': /^[A-Z]\d{11}$/,
+  'Indiana': /^\d{10}$/,
+  'Iowa': /^\d{9}$/,
+  'Kansas': /^\d{9}$/,
+  'Kentucky': /^[A-Z]\d{8}$/,
+  'Louisiana': /^\d{9}$/,
+  'Maine': /^\d{7}$/,
+  'Maryland': /^[A-Z]\d{12}$/,
+  'Massachusetts': /^\d{9}$/,
+  'Michigan': /^[A-Z]\d{12}$/, // corrected
+  'Minnesota': /^[A-Z0-9]{13}$/, // corrected
+  'Mississippi': /^\d{9}$/,
+  'Missouri': /^\d{9}$/,
+  'Montana': /^[A-Z]{2}\d{6}$/,
+  'Nebraska': /^[A-Z]\d{6,8}$/,
+  'Nevada': /^(\d{10}|[A-Z]\d{9})$/, // corrected
+  'New Hampshire': /^[A-Z]{2}\d{6}$/,
+  'New Jersey': /^[A-Z]\d{12,14}$/, // corrected
+  'New Mexico': /^\d{9}$/,
+  'New York': /^(\d{9}|ID\d{7})$/, // corrected
+  'North Carolina': /^\d{12}$/, // corrected
+  'North Dakota': /^[A-Z]{3}\d{6}$/,
+  'Ohio': /^[A-Z]{2}\d{6}$/,
+  'Oklahoma': /^[A-Z]\d{9}$/,
+  'Oregon': /^\d{7}$/, // simplified
+  'Pennsylvania': /^\d{8}$/,
+  'Rhode Island': /^\d{7}$/,
+  'South Carolina': /^\d{9}$/,
+  'South Dakota': /^\d{8}$/,
+  'Tennessee': /^\d{9}$/,
+  'Texas': /^\d{8}$/,
+  'Utah': /^\d{9}$/,
+  'Vermont': /^\d{8}$/,
+  'Virginia': /^[A-Z]\d{8}$/,
+  'Washington': /^WDL\d{9}$/, // corrected
+  'West Virginia': /^\d{7}$/,
+  'Wisconsin': /^\d{8}$/,
+  'Wyoming': /^\d{9}$/,
+  'Puerto Rico': /^\d{9}$/,
+  'U.S. Virgin Islands': /^\d{9}$/
+};
+
+
+
   questions = [
   // ------------------ Loan Details ------------------
   {
@@ -303,7 +416,7 @@ export class Loans implements OnInit {
 
   // ------------------ Identity Verification ------------------
   {
-    label: 'License State',
+    label: 'License/ID State',
     type: 'select',
     options: [
       'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia',
@@ -432,6 +545,10 @@ export class Loans implements OnInit {
   public readonly ZIP_CODE_QUESTION_INDEX = 10;
   private readonly CITY_QUESTION_INDEX = 11;
   private readonly STREET_ADDRESS_INDEX = 12;
+  private readonly LICENSE_STATE_INDEX = 16;
+  private readonly LICENSE_NUMBER_INDEX = 17;
+  private readonly ID_NUMBER_INDEX = 18;
+  private readonly ABA_ROUTING_INDEX = 30;
 
   get TERMS_QUESTION_INDEX() { return this.questions.length - 1; }
   private affId: string | null = null;
@@ -607,14 +724,14 @@ export class Loans implements OnInit {
   }
 
   private async checkCountry(): Promise<boolean> {
-    if (!this.ipAddress) return true;
+    if (!this.ipAddress) return false;
     try {
       const response = await fetch(`https://ipapi.co/${this.ipAddress}/json/`);
       const data = await response.json();
       return data.country_code === 'US';
     } catch (error) {
       console.error('Country check failed:', error);
-      return true; // assume US on error
+      return false; // assume not US on error
     }
   }
 
@@ -690,6 +807,37 @@ export class Loans implements OnInit {
     return true;
   }
 
+  private validateABARouting(routing: string): { valid: boolean, errors: string[] } {
+    // Format Check – It must contain exactly 9 digits (no spaces, no letters).
+    if (!/^\d{9}$/.test(routing)) {
+      return { valid: false, errors: ['Invalid Routing Number.'] };
+    }
+
+    const digits = routing.split('').map(Number);
+
+    // First Two Digits Rule – The first two digits must be in one of these ranges: 01–12, 21–32, 61–72.
+    const firstTwo = parseInt(routing.substring(0, 2), 10);
+    const validRanges = [
+      [1, 12],
+      [21, 32],
+      [61, 72]
+    ];
+    const inRange = validRanges.some(([min, max]) => firstTwo >= min && firstTwo <= max);
+    if (!inRange) {
+      return { valid: false, errors: ['Invalid Routing Number.'] };
+    }
+
+    // Checksum Validation – Use the official ABA formula: (3 × (d1 + d4 + d7)) + (7 × (d2 + d5 + d8)) + (1 × (d3 + d6 + d9)) The total must be divisible by 10 (mod 10 = 0).
+    const sum = 3 * (digits[0] + digits[3] + digits[6]) +
+               7 * (digits[1] + digits[4] + digits[7]) +
+               1 * (digits[2] + digits[5] + digits[8]);
+    if (sum % 10 !== 0) {
+      return { valid: false, errors: ['Invalid Routing Number.'] };
+    }
+
+    return { valid: true, errors: [] };
+  }
+
   onDobMonthChange() { this.recalculateDays(); }
   onDobYearChange() { this.recalculateDays(); }
   private recalculateDays() {
@@ -700,6 +848,14 @@ export class Loans implements OnInit {
     if (parseInt(this.dobAnswer.dobDay || '0', 10) > maxDay) {
       this.dobAnswer.dobDay = '';
     }
+  }
+
+  private getLicenseRegex(state: string): RegExp {
+    return this.licenseRegexes[state] || /^[A-Z0-9]{1,20}$/;
+  }
+
+  private getIdRegex(state: string): RegExp {
+    return this.idRegexes[state] || /^[A-Z0-9]{1,20}$/;
   }
 
   // Input handling and numeric enforcement
@@ -839,6 +995,40 @@ export class Loans implements OnInit {
       }
     }
 
+    if (this.currentStep === this.LICENSE_NUMBER_INDEX) {
+      const licenseState = this.answers[this.LICENSE_STATE_INDEX];
+      if (!licenseState) {
+        this.errorMessage = 'Please select license state first.';
+        return false;
+      }
+      const regex = this.getLicenseRegex(licenseState);
+      if (typeof currentAnswer !== 'string' || !regex.test(currentAnswer)) {
+        this.errorMessage = 'Please enter a valid license number for ' + licenseState;
+        return false;
+      }
+    }
+
+    if (this.currentStep === this.ID_NUMBER_INDEX) {
+      const licenseState = this.answers[this.LICENSE_STATE_INDEX];
+      if (!licenseState) {
+        this.errorMessage = 'Please select license state first.';
+        return false;
+      }
+      const regex = this.getIdRegex(licenseState);
+      if (typeof currentAnswer !== 'string' || !regex.test(currentAnswer)) {
+        this.errorMessage = 'Please enter a valid ID number for ' + licenseState;
+        return false;
+      }
+    }
+
+    if (this.currentStep === this.ABA_ROUTING_INDEX) {
+      const result = this.validateABARouting(currentAnswer as string);
+      if (!result.valid) {
+        this.errorMessage = result.errors.join(' ');
+        return false;
+      }
+    }
+
     return true;
   }
 
@@ -942,6 +1132,13 @@ async submitForm() {
   this.isSubmitting = true;
   this.errorMessage = '';
 
+  // ✅ Check if US Citizen
+  if (!this.isUSCitizen) {
+    this.errorMessage = 'This service is only for US Citizens';
+    this.isSubmitting = false;
+    return;
+  }
+
   // ✅ Must accept T&C
   if (this.answers[this.TERMS_QUESTION_INDEX] !== true) {
     this.errorMessage = 'You must accept the User Terms & Conditions to submit.';
@@ -985,6 +1182,10 @@ sessionStorage.setItem('universal_leadid', leadIdValue);
 
   try {
     await this.getIpAddress();
+
+    if (this.ipAddress) {
+      this.isUSCitizen = await this.checkCountry();
+    }
 
     if (!this.ipAddress) {
       this.isSubmitted = true;
@@ -1139,7 +1340,7 @@ sessionStorage.setItem('universal_leadid', leadIdValue);
       bankAccountNumber: formattedAnswers['bankAccountNumber'] || '',
       accountType: formattedAnswers['accountType'] || '',
       accountLife: formattedAnswers['timeOfAccountAtBank'] || '',
-      licenseState: this.stateAbbreviations[formattedAnswers['licenseState']] || formattedAnswers['licenseState'] || '',
+      licenseState: this.stateAbbreviations[formattedAnswers['licenseIdState']] || formattedAnswers['licenseIdState'] || '',
       licenseNumber: formattedAnswers['licenseNumber'] || '',
       idNumber: formattedAnswers['idNumber'] || '',
       homeOwnership: formattedAnswers['homeOwnershipStatus'] || '',
