@@ -222,7 +222,7 @@ export class Loans implements OnInit {
   'New Hampshire': /^[A-Z]{2}\d{6}$/,
   'New Jersey': /^[A-Z]\d{14}$/, // Fixed
   'New Mexico': /^\d{9}$/,
-  'New York': /^(?:\d{9}|[A-Z]\d{18})$/, // Fixed
+  'New York': /^(?:\d{9}|[A-Z]\d{8})$/, // Fixed
   'North Carolina': /^\d{1,12}$/, // Fixed
   'North Dakota': /^[A-Z]{3}\d{6}$/,
   'Ohio': /^[A-Z]{2}\d{6}$/,
@@ -851,11 +851,11 @@ private readonly idRegexes: { [key: string]: RegExp } = {
   }
 
   private getLicenseRegex(state: string): RegExp {
-    return this.licenseRegexes[state] || /^[A-Z0-9]{1,20}$/;
+    return this.licenseRegexes[state] || /^[A-Z0-9]{1,20}$/i;
   }
 
   private getIdRegex(state: string): RegExp {
-    return this.idRegexes[state] || /^[A-Z0-9]{1,20}$/;
+    return this.idRegexes[state] || /^[A-Z0-9]{1,20}$/i;
   }
 
   // Input handling and numeric enforcement
@@ -976,11 +976,12 @@ private readonly idRegexes: { [key: string]: RegExp } = {
 
     if (this.currentStep === this.EMAIL_QUESTION_INDEX) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (typeof currentAnswer !== 'string' || !emailRegex.test(currentAnswer)) {
+      const trimmedAnswer = (currentAnswer as string).trim();
+      if (typeof currentAnswer !== 'string' || !emailRegex.test(trimmedAnswer)) {
         this.errorMessage = 'Please enter a valid email address.';
         return false;
       }
-      const domain = currentAnswer.split('@')[1];
+      const domain = trimmedAnswer.split('@')[1];
       const hasMX = await this.checkMX(domain);
       if (!hasMX) {
         this.errorMessage = 'Please enter a valid email address.';
@@ -989,7 +990,8 @@ private readonly idRegexes: { [key: string]: RegExp } = {
     }
 
     if (this.currentStep === 3 || this.currentStep === 4) {
-      if (typeof currentAnswer !== 'string' || !/^[a-zA-Z\s]+$/.test(currentAnswer)) {
+      const trimmedAnswer = (currentAnswer as string).trim();
+      if (typeof currentAnswer !== 'string' || !/^[a-zA-Z\s]+$/.test(trimmedAnswer)) {
         this.errorMessage = 'Please enter only letters for the name.';
         return false;
       }
@@ -1002,7 +1004,8 @@ private readonly idRegexes: { [key: string]: RegExp } = {
         return false;
       }
       const regex = this.getLicenseRegex(licenseState);
-      if (typeof currentAnswer !== 'string' || !regex.test(currentAnswer)) {
+      const processedAnswer = (currentAnswer as string).trim().toUpperCase();
+      if (typeof currentAnswer !== 'string' || !regex.test(processedAnswer)) {
         this.errorMessage = 'Please enter a valid license number for ' + licenseState;
         return false;
       }
@@ -1015,7 +1018,8 @@ private readonly idRegexes: { [key: string]: RegExp } = {
         return false;
       }
       const regex = this.getIdRegex(licenseState);
-      if (typeof currentAnswer !== 'string' || !regex.test(currentAnswer)) {
+      const processedAnswer = (currentAnswer as string).trim().toUpperCase();
+      if (typeof currentAnswer !== 'string' || !regex.test(processedAnswer)) {
         this.errorMessage = 'Please enter a valid ID number for ' + licenseState;
         return false;
       }
